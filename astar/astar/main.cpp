@@ -6,24 +6,18 @@
 #include "cell.h"
 #include "PathFinding.h"
 
-
-const int GRID_ROWS = 20;
-const int GRID_COLS = 20;
-
-using namespace std;
-
-string GetGridStr(string path) {
-	ifstream file(path);
+std::string getGridStr(std::string path) {
+	std::ifstream file(path);
 
 	if (!file.is_open()) {
 		std::cerr << "Error: Can't open the grid.txt file." << std::endl;
 		return "";
 	}
 
-	string gridStr;
-	string line;
+	std::string gridStr;
+	std::string line;
 
-	while (getline(file, line)) {
+	while (std::getline(file, line)) {
 		gridStr += line + "\n";
 	}
 
@@ -33,15 +27,18 @@ string GetGridStr(string path) {
 }
 
 int main() {
-	string gridStr = GetGridStr("grid.txt");
-	cout << gridStr;
+	std::string gridStr = getGridStr("grid.txt");
+	std::cout << gridStr;
 
 	PathFinding pf = PathFinding(gridStr);
-	pf.SetStartCell(0, 19);
-	pf.SetEndCell(19, 0);
-	pf.FindPath();
-
-
+	pf.setStartCell(0, 0);
+	pf.setEndCell(19, 19);
+	if (pf.findPath())
+	{
+		pf.printPath();
+	}
+	else
+		pf.printFailureMessage();
 
 	return 0;
 }

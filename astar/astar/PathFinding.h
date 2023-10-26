@@ -7,34 +7,40 @@
 
 class PathFinding {
 private:
-	int _gridSize;
-	std::string _gridStr;
+	int gridSize;
+	bool isPathCalculated;
+	std::string gridStr;
 	
-	std::vector<std::vector<Cell*>> _grid;
+	std::vector<std::vector<Cell*>> grid;
 
-	Cell* _startCell;
-	Cell* _endCell;
+	Cell* startCell;
+	Cell* endCell;
 	
-	std::vector<Cell*> _openList;
-	std::vector<Cell*> _closedList;
+	std::vector<Cell*> openList;
+	std::vector<Cell*> closedList;
+
+	double euclideanDistance(int x1, int y1, int x2, int y2);
+	Cell* getMinCell();
+	void setCellFields(Cell* cell, int x, int y);
+	void printInvalidGridShapeError();
+	void printGridEmptyError();
+	void printPathNotCalculatedError();
 
 
-	double EuclideanDistance(int x1, int y1, int x2, int y2);
-	void SetCellFields(Cell* cell, int x, int y);
-	Cell* GetMinValueCell();
+
 	static bool compareCellPointers(const Cell* a, const Cell* b);
 	static bool containsCell(const std::vector<Cell*> cellVector, const Cell* targetCell);
 
 public:
-
 	PathFinding(std::string gridStr);
 
-	int SetGridSize(std::string gridStr);
-	int SetGridSize(int gridSize);
-	void SetStartCell(int x, int y);
-	void SetEndCell(int x, int y);
-	void InitializeGrid(std::string gridStr);
-	bool FindPath();
-	void PrintPath(std::string gridStr);
+	bool findPath();
+	void initializeGrid(std::string gridStr);
+	void setGridSize(std::string gridStr);
+	void setStartCell(int x, int y);
+	void setEndCell(int x, int y);
+	void printPath();
+	void printSuccessMessage();
+	void printFailureMessage();
 
 };
